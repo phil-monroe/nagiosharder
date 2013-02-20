@@ -4,6 +4,7 @@ require 'active_support' # fine, we'll just do all of activesupport instead of t
 require 'cgi'
 require 'hashie'
 require 'nagiosharder/filters'
+require 'nagiosharder/availability'
 
 # :(
 require 'active_support/version' # double and triplely ensure ActiveSupport::VERSION is around
@@ -24,6 +25,7 @@ class NagiosHarder
   class Site
     attr_accessor :nagios_url, :user, :password, :default_options, :default_cookies, :version, :nagios_time_format
     include HTTParty::ClassMethods
+    include NagiosHarder::Availability
 
     def initialize(nagios_url, user, password, version = 3, nagios_time_format = nil)
       @nagios_url = nagios_url.gsub(/\/$/, '')
@@ -257,7 +259,7 @@ class NagiosHarder
         hostgroups[status[:group]] = status
       end
 
-     hostgroups 
+     hostgroups
     end
 
     def servicegroups_summary(options = {})
