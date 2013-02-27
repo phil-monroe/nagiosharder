@@ -2,7 +2,7 @@ class NagiosHarder
   module Availability
 
     def host_availability(host, type = :up, stat = :pct_total)
-      host_avail_url = "#{avail_url}?host=#{host}&timeperiod=last24hours&csvoutput=true"
+      host_avail_url = "#{avail_url}?host=#{host}&timeperiod=last24hours&csvoutput=true&initialassumedservicestate=6"
       response =  get(host_avail_url)
 
       raise "wtf #{host_avail_url}? #{response.code}" unless response.code == 200
